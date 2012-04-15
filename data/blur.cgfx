@@ -1,0 +1,273 @@
+uniform float4x4 worldViewProj: WORLDVIEWPROJECTION;
+
+uniform float2 texSize;
+
+float blur = 128;
+const float4 filter[8] = {         {-1.0, 1.0, 1.0 , 1.0},
+                                   { 1.0, -1.0, 1.0 , 1.0},
+                                   {-1.0, -1.0, 1.0 , 1.0},
+                                   { 1.0, 1.0, 1.0 , 1.0},
+                                   {-2.0, 2.0, 1.0 , 1.0},
+                                   { 2.0, -2.0, 1.0 , 1.0},
+                                   {-2.0, -2.0, 1.0 , 1.0},
+                                   { 2.0, 2.0, 1.0 , 1.0} };
+
+								   
+float2 u_Scale = float2( 2, 2 );
+float2 gaussFilter[7] = float2[7]( 
+             float2( -3.0,  0.015625 ),
+             float2(  -2.0, 0.09375 ),
+             float2(  -1.0, 0.234375 ),
+             float2(  0.0,  0.3125 ),
+             float2(  1.0,  0.234375 ),
+             float2(  2.0,  0.09375 ),
+             float2(  3.0,  0.015625 )
+);
+
+
+float blurRatio = 0.01; 
+float2 TexelKernelh[13];
+float BlurWeights[13]; 
+
+
+uniform texture SceneTexture;
+sampler2D ScnMap = sampler_state 
+{
+    texture = <SceneTexture>;
+    WrapS = ClampToEdge;
+    WrapT = ClampToEdge;
+    MinFilter = Linear;
+    MagFilter = Linear;
+    //MipFilter = Linear;
+};
+
+
+
+/**********************************************************/
+void VS_Blur(	in float4 position	: POSITION,
+		in float2 uv	: TEXCOORD0,
+		out float4 oPosition	: POSITION, 
+		out float2 oTex		: TEXCOORD0 )
+{
+	float2 pos = sign( position.xy );
+    oPosition = float4( pos, 0, 1 );	//position;
+	oTex = uv;
+}
+
+
+
+float4 PS_Blur( in float2 uv:TEXCOORD0 ) : COLOR
+{ 
+	float blurWeight[49] = {
+		0.000244, 0.001465, 0.003662, 0.004883, 0.003662, 0.001465, 0.000244, 
+		0.001465, 0.008789, 0.021973, 0.029297, 0.021973, 0.008789, 0.001465, 
+		0.003662, 0.021973, 0.054932, 0.073242, 0.054932, 0.021973, 0.003662, 
+		0.004883, 0.029297, 0.073242, 0.097656, 0.073242, 0.029297, 0.004883, 
+		0.003662, 0.021973, 0.054932, 0.073242, 0.054932, 0.021973, 0.003662, 
+		0.001465, 0.008789, 0.021973, 0.029297, 0.021973, 0.008789, 0.001465, 
+		0.000244, 0.001465, 0.003662, 0.004883, 0.003662, 0.001465, 0.000244 };
+
+	const float unitX = 1.0 / texSize.x;
+	const float unitY = 1.0 / texSize.y;
+
+    const int RAD_HALF = 3;
+	const float RAD_HALF_F = 3.0;
+    const int RAD = 7;
+
+
+   int i=0, k=0;
+   float2 coord = uv;
+   float xCoord = coord.x - RAD_HALF_F * unitX;
+   coord.y = coord.y + RAD_HALF_F * unitY;
+
+   float4 avg;
+  
+   for (i=0; i < RAD; i++) 
+   {
+	  coord.x = xCoord;
+	  for (k=0; k < RAD; k++) 
+	  {
+			avg = avg +  tex2D(ScnMap, coord) * blurWeight[i*RAD + k];
+			coord.x = coord.x + unitX;
+	  }
+	  coord.y = coord.y - unitY;
+	}
+	
+	avg.w = 1.0;
+	return avg;
+
+	
+/*
+	float dx = 1.0 / texSize.x;
+	float dy = 1.0 / texSize.y;
+	float2 st = uv;
+
+	float4 c = float4( 0, 0, 0, 0 );
+	float4 color = tex2D( ScnMap, st );
+
+	float brightness = dot(float4(0.30, 0.59, 0.11, 0.0), color);	// brightness of pixel
+	float distance = brightness;
+
+	//if( distance > 0.3 && distance < 0.7 )
+	{
+		// Getting colors of the center and surrounding texels.
+		c  = 4.0 * color;
+		c += 2.0 * tex2D(ScnMap, st + float2(+dx, 0.0));
+		c += 2.0 * tex2D(ScnMap, st + float2(-dx, 0.0));
+		c += 2.0 * tex2D(ScnMap, st + float2(0.0, +dy));
+		c += 2.0 * tex2D(ScnMap, st + float2(0.0, -dy));
+		c += tex2D(ScnMap, st + float2(+dx, +dy));
+		c += tex2D(ScnMap, st + float2(-dx, +dy));
+		c += tex2D(ScnMap, st + float2(-dx, -dy));
+		c += tex2D(ScnMap, st + float2(+dx, -dy));
+	
+        // Output color is the average.
+		c = c / 16.0;
+	}
+		
+	return c;***/
+}
+
+
+
+float4 PS_BlurHorizontal( in float2 uv:TEXCOORD0 ) : COLOR
+{ 
+	// Gaussian horizontal blur
+   float4 baseColor = float4(0.0, 0.0, 0.0, 0.0); 
+   //float d = -blurRatio * 100.0 - 300.0;
+   float d = texSize.x;
+   int i= 0;
+ 
+   TexelKernelh[0] = float2( 0, -6 );
+   TexelKernelh[1] = float2( 0, -5 );
+   TexelKernelh[2] = float2( 0, -4 );
+   TexelKernelh[3] = float2( 0, -3 );
+   TexelKernelh[4] = float2( 0, -2 );
+   TexelKernelh[5] = float2( 0, -1 );
+   TexelKernelh[6] = float2( 0,  0 );
+   TexelKernelh[7] = float2( 0,  1 );
+   TexelKernelh[8] = float2( 0,  2 );
+   TexelKernelh[9] = float2( 0,  3 );
+   TexelKernelh[10] = float2( 0, 4 );
+   TexelKernelh[11] = float2( 0, 5 );
+   TexelKernelh[12] = float2( 0, 6 );
+ 
+   BlurWeights[0] = 0.002216;
+   BlurWeights[1] = 0.008764;
+   BlurWeights[2] = 0.026995;
+   BlurWeights[3] = 0.064759;
+   BlurWeights[4] = 0.120985;
+   BlurWeights[5] = 0.176033;
+   BlurWeights[6] = 0.199471;
+   BlurWeights[7] = 0.176033;
+   BlurWeights[8] = 0.120985;
+   BlurWeights[9] = 0.064759;
+   BlurWeights[10] = 0.026995;
+   BlurWeights[11] = 0.008764;
+   BlurWeights[12] = 0.002216;
+ 
+   for (int i = 0; i < 13; i++)
+   {
+	float2 UV = uv.xy + (TexelKernelh[i].yx / d);
+	UV = saturate( UV );
+     baseColor += tex2D( ScnMap, UV ) * BlurWeights[i];
+   } 
+	baseColor.a = 1.0;
+
+   return baseColor;
+}
+
+
+float4 PS_BlurVertical( in float2 uv:TEXCOORD0 ) : COLOR
+{ 
+	// Gaussian vertical blur
+   float4 baseColor = float4(0.0, 0.0, 0.0, 0.0); 
+   //float d = -blurRatio * 100.0 - 300.0;
+   float d = texSize.y;
+   int i= 0;
+ 
+   TexelKernelh[0] = float2( 0, -6 );
+   TexelKernelh[1] = float2( 0, -5 );
+   TexelKernelh[2] = float2( 0, -4 );
+   TexelKernelh[3] = float2( 0, -3 );
+   TexelKernelh[4] = float2( 0, -2 );
+   TexelKernelh[5] = float2( 0, -1 );
+   TexelKernelh[6] = float2( 0,  0 );
+   TexelKernelh[7] = float2( 0,  1 );
+   TexelKernelh[8] = float2( 0,  2 );
+   TexelKernelh[9] = float2( 0,  3 );
+   TexelKernelh[10] = float2( 0, 4 );
+   TexelKernelh[11] = float2( 0, 5 );
+   TexelKernelh[12] = float2( 0, 6 );
+ 
+   BlurWeights[0] = 0.002216;
+   BlurWeights[1] = 0.008764;
+   BlurWeights[2] = 0.026995;
+   BlurWeights[3] = 0.064759;
+   BlurWeights[4] = 0.120985;
+   BlurWeights[5] = 0.176033;
+   BlurWeights[6] = 0.199471;
+   BlurWeights[7] = 0.176033;
+   BlurWeights[8] = 0.120985;
+   BlurWeights[9] = 0.064759;
+   BlurWeights[10] = 0.026995;
+   BlurWeights[11] = 0.008764;
+   BlurWeights[12] = 0.002216;
+ 
+   for (int i = 0; i < 13; i++)
+   {    
+	float2 UV = uv.xy + (TexelKernelh[i].xy / d);
+	UV = saturate( UV );
+   
+     baseColor += tex2D( ScnMap, UV) * BlurWeights[i];
+   }
+	baseColor.a = 1.0;
+
+   return baseColor;
+}
+
+
+float4 simplePS( in float2 uv:TEXCOORD0 ) : COLOR
+{ 
+	return tex2D(ScnMap, uv );
+}
+
+
+
+technique Technique_Copy
+{
+  pass P0
+  {
+    VertexProgram = compile arbvp1 VS_Blur();
+    FragmentProgram = compile arbfp1 simplePS();
+  }
+}
+
+
+technique Technique_Blur
+{
+  pass P0
+  {
+    VertexProgram = compile arbvp1 VS_Blur();
+    FragmentProgram = compile arbfp1 PS_Blur();
+  }
+}
+
+
+technique Technique_GuassianBlurH
+{
+  pass P0
+  {
+    VertexProgram = compile arbvp1 VS_Blur();
+    FragmentProgram = compile arbfp1 PS_BlurHorizontal();
+  }
+}
+
+technique Technique_GuassianBlurV
+{
+  pass P0
+  {
+    VertexProgram = compile arbvp1 VS_Blur();
+    FragmentProgram = compile arbfp1 PS_BlurVertical();
+  }
+}

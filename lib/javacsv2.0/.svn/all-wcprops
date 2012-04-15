@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/3/trunk/Leech/lib/javacsv2.0
+END
+build.bat
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/3/trunk/Leech/lib/javacsv2.0/build.bat
+END
+javadoc.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/3/trunk/Leech/lib/javacsv2.0/javadoc.xml
+END
+javacsv.jar
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/3/trunk/Leech/lib/javacsv2.0/javacsv.jar
+END
+javadoc.bat
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/3/trunk/Leech/lib/javacsv2.0/javadoc.bat
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/3/trunk/Leech/lib/javacsv2.0/build.xml
+END

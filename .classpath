@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="lib" path="lib/core.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/gluegen-rt.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/javaoscfull.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jl1.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jogl.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jpcap.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/opengl.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/geomerative.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/javacsv2.0/javacsv.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/maxmindgeoip.jar"/>
+	<classpathentry exported="true" kind="lib" path="data/GLGraphics.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/vitamin.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/video.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns
+END
+TXTRecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/TXTRecord.class
+END
+DNSLookup.class
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/DNSLookup.class
+END
+NSRecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/NSRecord.class
+END
+ARecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/ARecord.class
+END
+a.class
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/a.class
+END
+SOARecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/SOARecord.class
+END
+b.class
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/b.class
+END
+CNAMERecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/CNAMERecord.class
+END
+AAAARecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/AAAARecord.class
+END
+MXRecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/MXRecord.class
+END
+ResourceRecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/ResourceRecord.class
+END
+SimpleDNSLookup.class
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/SimpleDNSLookup.class
+END
+WKSRecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/WKSRecord.class
+END
+PTRRecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/PTRRecord.class
+END
+A6Record.class
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/A6Record.class
+END
+QuestionRecord.class
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/QuestionRecord.class
+END
+FindNameServer.class
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/3/trunk/Leech/lib/dnscomponent1.4/com/lavantech/net/dns/FindNameServer.class
+END
