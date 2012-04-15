@@ -113,7 +113,7 @@ public class TorrentControl implements Runnable{
 					wr.write("{\"arguments\":{\"delete-local-data\":\"true\"},\"method\":\"torrent-remove\",\"tag\":1300}");
 					break;
 				case LOAD_TORRENT:
-					wr.write("{\"arguments\":{\"filename\":\"/Users/curtismckinney/Desktop/leech torrents/leech.torrent\"},\"method\":\"torrent-add\",\"tag\":1300}");
+					wr.write("{\"arguments\":{\"filename\":\"/Users/curtmangz/Desktop/leech torrents/leech.torrent\"},\"method\":\"torrent-add\",\"tag\":1300}");
 					break;
 				case START:
 					wr.write("{\"method\":\"torrent-start\",\"tag\":100}");

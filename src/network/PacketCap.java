@@ -21,7 +21,7 @@ public class PacketCap implements Runnable{
 	public void run() {
 		Thread thisThread = Thread.currentThread();
 		
-		NetworkInterface device = JpcapCaptor.getDeviceList()[3];
+		NetworkInterface device = JpcapCaptor.getDeviceList()[2];
 		//for(int i=0;i<JpcapCaptor.getDeviceList().length;i++) {
 			//System.out.println()
 		//}
